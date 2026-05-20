@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Iniciativas 2026 — DOT/OSC</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#ffffff;color:#1e293b;line-height:1.5}
+.container{max-width:1120px;margin:0 auto;padding:20px 24px 48px}
+.header{background:#fff;border-radius:20px;padding:32px 36px 28px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#3b82f6,#06b6d4,#10b981)}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.header-badge{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;font-size:12px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.5px}
+.header h1{font-size:24px;font-weight:700;color:#0f172a;letter-spacing:-0.3px}
+.header .subtitle{font-size:13px;color:#94a3b8;margin-top:2px}
+.kpi-row{display:flex;gap:16px;flex-wrap:wrap}
+.kpi-card{display:flex;align-items:center;gap:20px;background:#fafbfc;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;flex:1;min-width:280px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
+.kpi-card.kpi-progress::before{background:linear-gradient(180deg,#3b82f6,#06b6d4)}
+.kpi-card.kpi-savings::before{background:linear-gradient(180deg,#f59e0b,#10b981)}
+.kpi-circle-wrap{position:relative;width:72px;height:72px;flex-shrink:0}
+.kpi-circle-wrap svg{transform:rotate(-90deg)}
+.kpi-circle-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;font-weight:800;color:#0f172a}
+.kpi-info strong{font-size:14px;color:#334155;display:block;margin-bottom:2px}
+.kpi-info span{font-size:12px;color:#94a3b8}
+.kpi-sav-rows{display:flex;flex-direction:column;gap:10px;flex:1}
+.kpi-sav-item{display:flex;align-items:center;gap:10px}
+.kpi-sav-icon{font-size:20px;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kpi-sav-icon.est{background:#fef3c7}
+.kpi-sav-icon.obt{background:#d1fae5}
+.kpi-sav-label{font-size:11px;color:#94a3b8;line-height:1.2}
+.kpi-sav-val{font-size:18px;font-weight:800;line-height:1.2}
+.kpi-sav-val.est-v{color:#d97706}
+.kpi-sav-val.obt-v{color:#059669}
+.header .update{font-size:11px;color:#cbd5e1;margin-top:16px;text-align:right}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filter-btn{padding:8px 18px;border:2px solid #cbd5e1;border-radius:24px;background:#fff;color:#475569;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s ease;user-select:none;outline:none}
+.filter-btn:hover{background:#f1f5f9;border-color:#94a3b8}
+.filter-btn.active{color:#fff !important;border-color:transparent !important}
+.area-section{margin-bottom:20px}
+.area-section.hidden{display:none}
+.area-header{display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:12px;background:#fff;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);flex-wrap:wrap}
+.area-badge{font-size:12px;font-weight:800;color:#fff;padding:5px 12px;border-radius:6px;letter-spacing:0.5px;min-width:56px;text-align:center}
+.area-title{font-size:15px;font-weight:700;flex:1;color:#334155;min-width:120px}
+.area-count{font-size:12px;color:#94a3b8;flex-shrink:0}
+.area-sav{font-size:11px;padding:3px 10px;border-radius:6px;font-weight:600;flex-shrink:0}
+.area-sav-est{background:#fef3c7;color:#92400e}
+.area-sav-obt{background:#d1fae5;color:#065f46;margin-left:-6px}
+.area-avg-bar-wrap{width:120px;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;flex-shrink:0}
+.area-avg-bar{height:100%;border-radius:3px;transition:width 0.8s ease}
+.area-avg{font-size:18px;font-weight:800;min-width:60px;text-align:right;flex-shrink:0}
+.initiative{background:#fff;border-radius:10px;margin-bottom:5px;box-shadow:0 1px 2px rgba(0,0,0,0.04);overflow:hidden;transition:box-shadow 0.2s}
+.initiative:hover{box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.init-main{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 18px;cursor:pointer;user-select:none}
+.init-main:hover{background:#fafbfc}
+.chevron{font-size:10px;color:#94a3b8;transition:transform 0.3s ease;width:16px;text-align:center;flex-shrink:0;line-height:1}
+.chevron.expanded{transform:rotate(90deg)}
+.init-id{font-size:11px;font-weight:700;color:#64748b;min-width:72px;flex-shrink:0}
+.init-name{flex:1;font-size:13.5px;font-weight:500;color:#334155;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.priority{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.priority-P1{background:#fef3c7;color:#92400e}
+.priority-P2{background:#e0e7ff;color:#3730a3}
+.priority-P3{background:#f1f5f9;color:#64748b}
+.bar-wrap{width:180px;height:22px;background:#e2e8f0;border-radius:6px;overflow:hidden;position:relative;flex-shrink:0}
+.bar-fill{height:100%;border-radius:6px;transition:width 0.7s ease;min-width:3px}
+.bar-pct{font-size:13px;font-weight:700;min-width:50px;text-align:right;flex-shrink:0}
+.check-icon{color:#10b981}
+.st{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600;white-space:nowrap;flex-shrink:0}
+.st-e{background:#fef3c7;color:#92400e}
+.st-o{background:#d1fae5;color:#065f46}
+.subs-container{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1);background:#f8fafc}
+.subs-container.open{max-height:1200px}
+.sub-row{display:flex;align-items:center;gap:10px;padding:9px 16px 9px 54px;border-top:1px solid #f1f5f9}
+.sub-row .init-id{font-size:10px;min-width:78px;color:#94a3b8}
+.sub-row .init-name{font-size:12.5px;color:#64748b}
+.sub-row .bar-wrap{width:140px;height:16px;border-radius:4px}
+.sub-row .bar-fill{border-radius:4px;opacity:0.7}
+.sub-row .bar-pct{font-size:12px;min-width:44px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;padding:14px 20px;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.06);font-size:12px;color:#64748b}
+.legend-item{display:flex;align-items:center;gap:6px}
+@media(max-width:768px){
+.container{padding:12px 12px 32px}.header{padding:24px 18px 20px}.header h1{font-size:20px}
+.kpi-row{flex-direction:column}.kpi-card{flex-direction:column;text-align:center;padding:14px}
+.bar-wrap{width:100px}.sub-row .bar-wrap{width:80px}
+.init-main{padding:10px 10px 10px 14px;gap:6px}.sub-row{padding-left:36px}
+.area-avg-bar-wrap{width:80px}.area-header{padding:10px 14px}
+.init-id{min-width:54px;font-size:10px}.init-name{font-size:12px}
+.filters{gap:6px}.filter-btn{padding:6px 14px;font-size:12px}
+}
+</style></head><body>
+<div class="container">
+<div class="header">
+  <div class="header-top">
+    <span class="header-badge">DOT / OSC</span>
+    <div><h1>Plano de Iniciativas 2026</h1>
+      <div class="subtitle">Acompanhamento macro de iniciativas e poupanças</div></div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-card kpi-progress">
+      <div class="kpi-circle-wrap"><svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="36" r="30" fill="none" stroke="#e2e8f0" stroke-width="6"/>
+        <circle cx="36" cy="36" r="30" fill="none" stroke="url(#grad1)" stroke-width="6" stroke-dasharray="188.5" stroke-dashoffset="124.4" stroke-linecap="round"/>
+        <defs><linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+      </svg><div class="kpi-circle-val">34%</div></div>
+      <div class="kpi-info"><strong>Concretização Global</strong><span>Média ponderada de todas as áreas</span></div>
+    </div>
+    <div class="kpi-card kpi-savings"><div class="kpi-sav-rows">
+      <div class="kpi-sav-item"><div class="kpi-sav-icon est">🪙</div><div>
+        <div class="kpi-sav-label">Poupança Prevista</div><div class="kpi-sav-val est-v">22 690€</div></div></div>
+      <div class="kpi-sav-item"><div class="kpi-sav-icon obt">✅</div><div>
+        <div class="kpi-sav-label">Poupança Obtida</div><div class="kpi-sav-val obt-v">864€</div></div></div>
+    </div></div>
+  </div>
+  <div class="update">Última atualização: 18 de maio de 2026</div>
+</div>
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-area="all" style="background:#1e293b;border-color:#1e293b;">Todas</button>
+  <button class="filter-btn" data-area="LSV" data-color="#3B82F6">LSV</button>
+  <button class="filter-btn" data-area="OEM" data-color="#F59E0B">OEM</button>
+  <button class="filter-btn" data-area="OPT" data-color="#10B981">OPT</button>
+  <button class="filter-btn" data-area="PSN" data-color="#8B5CF6">PSN</button>
+  <button class="filter-btn" data-area="PRJ" data-color="#EF4444">PRJ</button>
+  <button class="filter-btn" data-area="PDB2B" data-color="#06B6D4">PDB2B</button>
+</div>
+<div id="content"></div>
+<div class="legend">
+  <div class="legend-item"><span class="priority priority-P1">P1</span> Prioridade Alta</div>
+  <div class="legend-item"><span class="priority priority-P2">P2</span> Prioridade Média</div>
+  <div class="legend-item"><span class="priority priority-P3">P3</span> Prioridade Baixa</div>
+  <div class="legend-item"><span class="check-icon" style="font-size:14px;">✔</span> Concluída</div>
+  <div class="legend-item"><span class="st st-e">🪙 500€</span> Poupança prevista</div>
+  <div class="legend-item"><span class="st st-o">✅ 500€</span> Poupança obtida</div>
+  <div class="legend-item" style="margin-left:auto;color:#94a3b8;">▶ Clique para expandir</div>
+</div>
+</div>
+<script>
+var D=[
+{a:"LSV",c:"#3B82F6",av:12.83,ae:6710,ao:0,i:[
+{id:"#LSV01",n:"Automa\u00e7\u00e3o de Processos Operacionais",p:15,pr:"P2",e:2600,o:0,s:[
+{id:"#LSV01.1",n:"Revis\u00e3o das Regras do RPA#01",p:30,e:2500,o:0},
+{id:"#LSV01.2",n:"Regras de Atribui\u00e7\u00e3o de Campanha",p:15,e:100,o:0},
+{id:"#LSV01.3",n:"Melhorias APOLO: NIF e Admin. Empresariais",p:0,e:0,o:0}]},
+{id:"#LSV02",n:"Otimiza\u00e7\u00e3o Processos Comerciais",p:42,pr:"P1",e:700,o:0,s:[
+{id:"#LSV02.1",n:"Valida\u00e7\u00e3o Autom\u00e1tica Contratos (Grandes Cadeias)",p:100,e:700,o:0},
+{id:"#LSV02.2",n:"Integra\u00e7\u00e3o Fluxos IVR \u2192 APOLO",p:0,e:0,o:0},
+{id:"#LSV02.3",n:"Integra\u00e7\u00e3o em Ticketing",p:25,e:0,o:0}]},
+{id:"#LSV03",n:"Uniformiza\u00e7\u00e3o APOLO",p:0,pr:"P2",e:410,o:0,s:[
+{id:"#LSV03.1",n:"Cria\u00e7\u00e3o novo script TMK",p:0,e:0,o:0},
+{id:"#LSV03.1.2",n:"Automa\u00e7\u00e3o Vendas Fora de Horas",p:0,e:60,o:0},
+{id:"#LSV03.1.3",n:"Automa\u00e7\u00e3o Parceiro ComparaJ\u00e1",p:0,e:350,o:0}]},
+{id:"#LSV04",n:"KPIs e Reporting Operacional",p:0,pr:"P2",e:0,o:0,s:[
+{id:"Fase 1",n:"Prepara\u00e7\u00e3o (levantamento processos e depend\u00eancias)",p:0,e:0,o:0},
+{id:"Fase 2",n:"Defini\u00e7\u00e3o da Solu\u00e7\u00e3o (indicadores, fontes, governance)",p:0,e:0,o:0},
+{id:"Fase 3",n:"Implementa\u00e7\u00e3o e Acompanhamento",p:0,e:0,o:0}]},
+{id:"#LSV05",n:"Reengenharia Auditorias Comerciais",p:8,pr:"P1",e:3000,o:0,s:[
+{id:"#LSV05.1",n:"Explorar Solu\u00e7\u00e3o AI4Clarify",p:15,e:3000,o:0},
+{id:"#LSV05.2",n:"Motor Controlo Consist\u00eancia Vendas",p:0,e:0,o:0}]}
+]},
+{a:"OEM",c:"#F59E0B",av:21.25,ae:2700,ao:0,i:[
+{id:"#OEM01",n:"Automa\u00e7\u00e3o de Processos Operacionais",p:35,pr:"P1",e:2050,o:0,s:[
+{id:"#OEM01.1",n:"Reengenharia Envio Boxes/Routers (Reten\u00e7\u00e3o)",p:35,e:1300,o:0},
+{id:"#OEM01.2",n:"Automa\u00e7\u00e3o Corre\u00e7\u00e3o Morada (LRVI)",p:40,e:250,o:0},
+{id:"#OEM01.3",n:"Implementa\u00e7\u00e3o Guia Voz Autom\u00e1tica (BOT)",p:30,e:500,o:0}]},
+{id:"#OEM02",n:"Otimiza\u00e7\u00e3o Processos Comerciais",p:20,pr:"P1",e:650,o:0,s:[
+{id:"#OEM02.1",n:"Otimiza\u00e7\u00e3o MEO Energia",p:35,e:450,o:0},
+{id:"#OEM02.2",n:"Reengenharia Envio Equipamentos",p:15,e:0,o:0},
+{id:"#OEM02.3",n:"Uniformiza\u00e7\u00e3o Rece\u00e7\u00e3o Pedidos Desativ. M\u00f3veis",p:20,e:200,o:0},
+{id:"#OEM02.4",n:"Transcri\u00e7\u00e3o Chamadas (Monitorias)",p:10,e:0,o:0}]},
+{id:"#OEM03",n:"Simulador Comercial",p:0,pr:"P2",e:0,o:0,s:[
+{id:"Fase 1",n:"BOT para Simulador (API SFA, c\u00e1lculo ofertas)",p:0,e:0,o:0},
+{id:"Fase 2",n:"Evolu\u00e7\u00e3o 1 \u2014 Integra\u00e7\u00e3o Simulador/Comparador",p:0,e:0,o:0},
+{id:"Fase 3",n:"Comparador e Grava\u00e7\u00e3o de Simula\u00e7\u00f5es",p:0,e:0,o:0}]},
+{id:"#OEM04",n:"Sinergias Operacionais",p:30,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Desloca\u00e7\u00f5es improdutivas (inqu\u00e9ritos e auditorias)",p:20,e:0,o:0},
+{id:"Fase 2",n:"Utiliza\u00e7\u00e3o do PUV (monitoriza\u00e7\u00e3o mensal)",p:20,e:0,o:0},
+{id:"Fase 3",n:"Cria\u00e7\u00e3o e inclus\u00e3o de novos use cases",p:20,e:0,o:0}]},
+{id:"#OEM05",n:"Perfil Reduzido CRM",p:20,pr:"P2",e:0,o:0,s:[
+{id:"Fase 1",n:"Kickoff e levantamento de skills",p:40,e:0,o:0},
+{id:"Fase 2",n:"Defini\u00e7\u00e3o e prioriza\u00e7\u00e3o de ATs",p:20,e:0,o:0},
+{id:"Fase 3",n:"Implementa\u00e7\u00e3o faseada perfil reduzido",p:0,e:0,o:0}]}
+]},
+{a:"OPT",c:"#10B981",av:57.06,ae:3980,ao:864,i:[
+{id:"#OPT01",n:"Automa\u00e7\u00e3o de Processos Operacionais",p:79,pr:"P1",e:2980,o:864,s:[
+{id:"#OPT01.1",n:"Tratamento Autom\u00e1tico Rejeitados",p:98,e:700,o:353},
+{id:"#OPT01.2",n:"Submiss\u00e3o Port. MxO (Reten\u00e7\u00e3o)",p:100,e:600,o:511},
+{id:"#OPT01.3",n:"Submiss\u00e3o Port. Standalone (Reten\u00e7\u00e3o)",p:100,e:300,o:0},
+{id:"#OPT01.4",n:"Uniformiza\u00e7\u00e3o Rob\u00f4s Desligamentos",p:100,e:0,o:0},
+{id:"#OPT01.5",n:"Elimina\u00e7\u00e3o Duplicados Deslig. Fibra",p:44,e:1000,o:0},
+{id:"#OPT01.6",n:"Automa\u00e7\u00e3o Deslig. Postos P\u00fablicos",p:33,e:380,o:0}]},
+{id:"#OPT02",n:"Reengenharia DOOPs com Portabilidade",p:50,pr:"P1",e:1000,o:0,s:[
+{id:"Fase 1",n:"Prepara\u00e7\u00e3o (reuni\u00f5es PGM, especifica\u00e7\u00e3o)",p:100,e:0,o:0},
+{id:"Fase 2",n:"Desenvolvimento e testes (ATLAS PBI 2505)",p:0,e:0,o:0},
+{id:"Fase 3",n:"Valida\u00e7\u00e3o final e Implementa\u00e7\u00e3o",p:0,e:0,o:0}]},
+{id:"#OPT03",n:"An\u00e1lise Qualitativa Reclama\u00e7\u00f5es",p:42,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Prepara\u00e7\u00e3o (disponibiliza\u00e7\u00e3o reports)",p:100,e:0,o:0},
+{id:"Fase 2",n:"An\u00e1lise e identifica\u00e7\u00e3o de oportunidades de melhoria",p:25,e:0,o:0}]}
+]},
+{a:"PSN",c:"#8B5CF6",av:46.20,ae:0,ao:0,i:[
+{id:"#PSN01",n:"Fus\u00e3o ATLAS/APOLO",p:10,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Diagn\u00f3stico (tecnologia, desvio tr\u00e1fego, arquitetura)",p:30,e:0,o:0},
+{id:"Fase 2",n:"Implementa\u00e7\u00e3o (estrutura, login, credencia\u00e7\u00e3o)",p:0,e:0,o:0},
+{id:"Fase 3",n:"Monitoriza\u00e7\u00e3o (logins, logs, redirecionamentos)",p:0,e:0,o:0}]},
+{id:"#PSN02",n:"Unifica\u00e7\u00e3o Scripts Venda APOLO",p:62,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Diagn\u00f3stico (mapeamento, matriz diferen\u00e7as)",p:97,e:0,o:0},
+{id:"Fase 2",n:"Implementa\u00e7\u00e3o (core unificado, feature-flags)",p:73,e:0,o:0},
+{id:"Fase 3",n:"Valida\u00e7\u00e3o e Integra\u00e7\u00e3o (testes, UAT, docs)",p:42,e:0,o:0},
+{id:"Fase 4",n:"Encerramento e Monitoriza\u00e7\u00e3o",p:0,e:0,o:0}]},
+{id:"#PSN03",n:"KPIs e Performance ATLAS",p:38,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Diagn\u00f3stico (an\u00e1lise, defini\u00e7\u00e3o KPIs, investiga\u00e7\u00e3o)",p:100,e:0,o:0},
+{id:"Fase 2",n:"Implementa\u00e7\u00e3o (estrutura logs, rawdata, interface)",p:14,e:0,o:0},
+{id:"Fase 3",n:"Monitoriza\u00e7\u00e3o (valida\u00e7\u00e3o, observa\u00e7\u00e3o, conclus\u00e3o)",p:0,e:0,o:0}]},
+{id:"#PSN04",n:"Unifica\u00e7\u00e3o Plataforma Tickets",p:100,pr:"P2",e:0,o:0,s:[
+{id:"Fase 1",n:"Prepara\u00e7\u00e3o (comunica\u00e7\u00e3o pr\u00e9via)",p:100,e:0,o:0},
+{id:"Fase 2",n:"Diagn\u00f3stico (valida\u00e7\u00e3o t\u00e9cnica)",p:100,e:0,o:0},
+{id:"Fase 3",n:"Desenvolvimento (aplica\u00e7\u00e3o, gui\u00e3o, regras)",p:100,e:0,o:0},
+{id:"Fase 4",n:"Comunica\u00e7\u00e3o da altera\u00e7\u00e3o",p:100,e:0,o:0},
+{id:"Fase 5",n:"Testes internos",p:100,e:0,o:0},
+{id:"Fase 6",n:"Implementa\u00e7\u00e3o",p:100,e:0,o:0},
+{id:"Fase 7",n:"Finaliza\u00e7\u00e3o (desativa\u00e7\u00e3o CA + monitoriza\u00e7\u00e3o)",p:100,e:0,o:0}]},
+{id:"#PSN05",n:"Otimiza\u00e7\u00e3o Metodologia Trabalho (SCRUM)",p:21,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Diagn\u00f3stico (an\u00e1lise interna, fluxograma, POs)",p:55,e:0,o:0},
+{id:"Fase 2",n:"Implementa\u00e7\u00e3o das novas medidas",p:0,e:0,o:0},
+{id:"Fase 3",n:"Monitoriza\u00e7\u00e3o e acompanhamento",p:0,e:0,o:0}]}
+]},
+{a:"PRJ",c:"#EF4444",av:41.04,ae:0,ao:0,i:[
+{id:"#PRJ01",n:"Otimiza\u00e7\u00e3o e Automa\u00e7\u00e3o de Processos (coordena\u00e7\u00e3o transversal)",p:32,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Gest\u00e3o cronograma global de desenvolvimentos",p:100,e:0,o:0},
+{id:"Fase 2",n:"Especifica\u00e7\u00e3o e implementa\u00e7\u00e3o de RPAs",p:49,e:0,o:0},
+{id:"Fase 3",n:"Otimiza\u00e7\u00e3o e automa\u00e7\u00e3o operacional B2C",p:53,e:0,o:0},
+{id:"Fase 4",n:"Otimiza\u00e7\u00e3o e automa\u00e7\u00e3o operacional B2B",p:33,e:0,o:0}]},
+{id:"#PRJ02",n:"Acessos 2.0",p:35,pr:"P1",e:0,o:0,s:[
+{id:"#PRJ02.1",n:"Automatiza\u00e7\u00e3o acessos PPV",p:50,e:0,o:0},
+{id:"#PRJ02.2",n:"Migra\u00e7\u00e3o acessos OSC para Hive",p:13,e:0,o:0},
+{id:"#PRJ02.3",n:"Rob\u00f4 gest\u00e3o acessos Hive",p:53,e:0,o:0},
+{id:"#PRJ02.4",n:"Pacote Melhorias Hive",p:33,e:0,o:0}]},
+{id:"#PRJ03",n:"Plano Desenvolvimento e Forma\u00e7\u00e3o",p:26,pr:"P1",e:0,o:0,s:[
+{id:"Fase 1",n:"Diagn\u00f3stico e Planeamento",p:100,e:0,o:0},
+{id:"Fase 2",n:"Planos Formativos e Manuais",p:10,e:0,o:0},
+{id:"Fase 3",n:"Implementa\u00e7\u00e3o Forma\u00e7\u00f5es (Tradicional)",p:6,e:0,o:0},
+{id:"Fase 4",n:"Implementa\u00e7\u00e3o Forma\u00e7\u00f5es (GoodHabitz)",p:0,e:0,o:0},
+{id:"Fase 5",n:"Dinamiza\u00e7\u00e3o e Engagement",p:10,e:0,o:0},
+{id:"Fase 6",n:"Monitoriza\u00e7\u00e3o e Avalia\u00e7\u00e3o",p:40,e:0,o:0},
+{id:"Fase 7",n:"Comunica\u00e7\u00e3o e Atualiza\u00e7\u00e3o",p:10,e:0,o:0},
+{id:"Fase 8",n:"Melhoria Cont\u00ednua",p:17,e:0,o:0}]},
+{id:"#PRJ04",n:"Comunica\u00e7\u00e3o e Engagement",p:79,pr:"P2",e:0,o:0,s:[
+{id:"#PRJ04.1",n:"Comunica\u00e7\u00e3o Interna OSC",p:100,e:0,o:0},
+{id:"#PRJ04.2",n:"Question\u00e1rio anual OSC",p:79,e:0,o:0},
+{id:"#PRJ04.3",n:"Comunica\u00e7\u00e3o LOOPi",p:58,e:0,o:0}]},
+{id:"#PRJ05",n:"Gest\u00e3o Otimiza\u00e7\u00e3o Processos Qualidade",p:33,pr:"P2",e:0,o:0,s:[
+{id:"Fase 1",n:"Calibra\u00e7\u00e3o crit\u00e9rios de avalia\u00e7\u00e3o",p:20,e:0,o:0},
+{id:"Fase 2",n:"Novo relat\u00f3rio monitorias Tephra",p:15,e:0,o:0},
+{id:"Fase 3",n:"Relat\u00f3rio de indisponibilidades",p:50,e:0,o:0},
+{id:"Fase 4",n:"Relat\u00f3rios de suporte \u00e0 OSC",p:100,e:0,o:0},
+{id:"Fase 5",n:"Utiliza\u00e7\u00e3o IA no controlo de qualidade",p:0,e:0,o:0}]},
+{id:"#PRJ06",n:"Cria\u00e7\u00e3o QoS OSC e F\u00f3rum",p:0,pr:"P3",e:0,o:0,s:[
+{id:"Fase 1",n:"Defini\u00e7\u00e3o indicadores QoS transversais \u00e0 OSC",p:0,e:0,o:0},
+{id:"Fase 2",n:"Cria\u00e7\u00e3o F\u00f3rum de Acompanhamento",p:0,e:0,o:0}]}
+]},
+{a:"PDB2B",c:"#06B6D4",av:21.33,ae:9300,ao:0,i:[
+{id:"#PDB2B01",n:"Automa\u00e7\u00e3o Valida\u00e7\u00e3o Portabilidade B2B",p:13,pr:"P1",e:2800,o:0,s:[
+{id:"Fase 1",n:"Prepara\u00e7\u00e3o (mesa redonda, levantamento, especifica\u00e7\u00f5es)",p:25,e:0,o:0},
+{id:"Fase 2",n:"Desenvolvimento e testes (piloto ENI, ATLAS, DocDigitizer)",p:0,e:0,o:0},
+{id:"Fase 3",n:"Implementa\u00e7\u00e3o e Acompanhamento",p:0,e:0,o:0}]},
+{id:"#PDB2B02",n:"Automa\u00e7\u00e3o Port Out Sit-e",p:18,pr:"P2",e:1500,o:0,s:[
+{id:"Fase 1",n:"Prepara\u00e7\u00e3o (levantamento, an\u00e1lise, especifica\u00e7\u00e3o)",p:36,e:0,o:0},
+{id:"Fase 2",n:"Desenvolvimento e testes (DIT)",p:0,e:0,o:0},
+{id:"Fase 3",n:"Implementa\u00e7\u00e3o e Acompanhamento",p:0,e:0,o:0}]},
+{id:"#PDB2B03",n:"Automa\u00e7\u00e3o de Processos Operacionais",p:33,pr:"P1",e:5000,o:0,s:[
+{id:"#PDB2B03.1",n:"Automatiza\u00e7\u00e3o Altera\u00e7\u00f5es N\u00famero",p:31,e:900,o:0},
+{id:"#PDB2B03.2",n:"Automatiza\u00e7\u00e3o troca boxes/routers",p:35,e:1700,o:0},
+{id:"#PDB2B03.3",n:"Automatiza\u00e7\u00e3o Altera\u00e7\u00f5es Contratuais",p:31,e:1300,o:0},
+{id:"#PDB2B03.4",n:"Uniformiza\u00e7\u00e3o Rob\u00f4s Desligamentos B2B",p:38,e:1100,o:0}]}
+]}
+];
+
+function fmt(v){return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g," ")+"\u20ac";}
+function bc(p,c){return p>=100?"#10b981":c;}
+function ck(p){return p>=100?'<span class="check-icon">\u2714 </span>':"";}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function st(e,o){
+  var h="";
+  if(o>0) h+='<span class="st st-o">\u2705 '+fmt(o)+' obt.</span>';
+  if(e>0&&o<=0) h+='<span class="st st-e">\ud83e\ude99 '+fmt(e)+'</span>';
+  if(e>0&&o>0) h+=' <span class="st st-e">\ud83e\ude99 '+fmt(e)+' prev.</span>';
+  return h;
+}
+
+function render(){
+  var ct=document.getElementById("content"),h="";
+  D.forEach(function(ar){
+    var n=ar.i.length;
+    h+='<div class="area-section" data-area="'+ar.a+'">';
+    h+='<div class="area-header">';
+    h+='<span class="area-badge" style="background:'+ar.c+'">'+ar.a+'</span>';
+    h+='<span class="area-title">'+ar.a+'</span>';
+    h+='<span class="area-count">'+n+' iniciativa'+(n>1?'s':'')+'</span>';
+    if(ar.ae>0){
+      h+='<span class="area-sav area-sav-est">\ud83e\ude99 Prev. '+fmt(ar.ae)+'</span>';
+      if(ar.ao>0) h+='<span class="area-sav area-sav-obt">\u2705 '+fmt(ar.ao)+' obt.</span>';
+    }
+    h+='<div class="area-avg-bar-wrap"><div class="area-avg-bar" style="width:'+ar.av+'%;background:'+ar.c+'"></div></div>';
+    h+='<span class="area-avg" style="color:'+ar.c+'">'+ar.av+'%</span>';
+    h+='</div>';
+    ar.i.forEach(function(it,idx){
+      var uid=ar.a+"_"+idx,fc=bc(it.p,ar.c),bw=Math.max(it.p,1);
+      h+='<div class="initiative">';
+      h+='<div class="init-main" data-uid="'+uid+'" data-hassubs="true">';
+      h+='<span class="chevron" id="chev_'+uid+'">\u25b6</span>';
+      h+='<span class="init-id">'+esc(it.id)+'</span>';
+      h+='<span class="init-name" title="'+esc(it.n)+'">'+esc(it.n)+'</span>';
+      h+=st(it.e,it.o);
+      h+='<span class="priority priority-'+it.pr+'">'+it.pr+'</span>';
+      h+='<div class="bar-wrap"><div class="bar-fill" style="width:'+bw+'%;background:'+fc+'"></div></div>';
+      h+='<span class="bar-pct" style="color:'+fc+'">'+ck(it.p)+it.p+'%</span>';
+      h+='</div>';
+      h+='<div class="subs-container" id="subs_'+uid+'">';
+      it.s.forEach(function(sub){
+        var sf=bc(sub.p,ar.c),sw=Math.max(sub.p,1);
+        h+='<div class="sub-row">';
+        h+='<span class="init-id">'+esc(sub.id)+'</span>';
+        h+='<span class="init-name" title="'+esc(sub.n)+'">'+esc(sub.n)+'</span>';
+        h+=st(sub.e,sub.o);
+        h+='<div class="bar-wrap"><div class="bar-fill" style="width:'+sw+'%;background:'+sf+'"></div></div>';
+        h+='<span class="bar-pct" style="color:'+sf+'">'+ck(sub.p)+sub.p+'%</span>';
+        h+='</div>';
+      });
+      h+='</div></div>';
+    });
+    h+='</div>';
+  });
+  ct.innerHTML=h;
+}
+
+document.getElementById("content").addEventListener("click",function(ev){
+  var row=ev.target.closest('.init-main[data-hassubs="true"]');
+  if(!row) return;
+  var uid=row.getAttribute("data-uid");
+  var s=document.getElementById("subs_"+uid);
+  var ch=document.getElementById("chev_"+uid);
+  if(!s||!ch) return;
+  if(s.classList.contains("open")){
+    s.classList.remove("open");ch.classList.remove("expanded");ch.innerHTML="\u25b6";
+  } else {
+    s.classList.add("open");ch.classList.add("expanded");ch.innerHTML="\u25bc";
+  }
+});
+
+document.getElementById("filters").addEventListener("click",function(ev){
+  if(!ev.target.classList.contains("filter-btn")) return;
+  var area=ev.target.getAttribute("data-area");
+  var btns=document.querySelectorAll(".filter-btn");
+  for(var i=0;i<btns.length;i++){
+    btns[i].classList.remove("active");
+    btns[i].style.background="#fff";
+    btns[i].style.color="#475569";
+    btns[i].style.borderColor="#cbd5e1";
+  }
+  ev.target.classList.add("active");
+  if(area==="all"){
+    ev.target.style.background="#1e293b";ev.target.style.color="#fff";ev.target.style.borderColor="#1e293b";
+  } else {
+    var cl=ev.target.getAttribute("data-color");
+    ev.target.style.background=cl;ev.target.style.color="#fff";ev.target.style.borderColor=cl;
+  }
+  var secs=document.querySelectorAll(".area-section");
+  for(var j=0;j<secs.length;j++){
+    if(area==="all"||secs[j].getAttribute("data-area")===area) secs[j].classList.remove("hidden");
+    else secs[j].classList.add("hidden");
+  }
+});
+
+render();
+</script></body></html>
